@@ -24,10 +24,6 @@ public class LZ77 {
             }
         }
 
-        //TESTING
-        this.code = "11011100101001111010100010001";
-        this.Mtotal = this.code.length();
-
 
         this.generateCompressCode();
     }

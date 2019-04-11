@@ -6,7 +6,7 @@ public class Main {
 
         Scanner sc = new Scanner(System.in);
 
-        int Mtotal = 50;
+        int Mtotal = 25;
 
 
         System.out.println("______________________________\n" +

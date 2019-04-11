@@ -88,10 +88,9 @@
       <change beforePath="$PROJECT_DIR$/../../SO2/Sublime text/sublime_text_3/sublime_text" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../../SO2/Sublime text/sublime_text_3/sublime_text.desktop" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../../SO2/Sublime text/sublime_text_3_build_3176_x64.tar.bz2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../4a/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../4a/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../4a/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../4a/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../4a/src/LZ77.java" beforeDir="false" afterPath="$PROJECT_DIR$/../4a/src/LZ77.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4a/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/../4a/src/Main.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
