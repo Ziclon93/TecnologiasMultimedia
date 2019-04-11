@@ -1,0 +1,16 @@
+
+Cosas a decir, en los numeros generados aleatoriamente, aparecerá el caracter X que representa el 10, lo
+hemos contado como si se tratase de un caracter y no dos como sería un 1 y un 0.
+
+A la hora de llevar a cabo los ejercicios apareceran en terminal los resultados de todos los apartados planteados
+en la practica.
+
+En el apartado A muestra los codigos hufffman de todos los caracteres
+
+En el apartado B hemos hecho que pida una cadena para tener mas facilidad para el testeo, se ha quedado así,
+lee el 10 tanto con una X como como un 10, y para introducir un diamante se representa con una D.
+
+En el apartado C se genera con la probabilidad deseada un string que es una cadena de los caracteres que se encuentran
+en el conjunto presentado.
+
+En el apartado D se hacen 5 pruebas, random, se calculan los bits de media con y sin hoffman y se calcula la entropía.

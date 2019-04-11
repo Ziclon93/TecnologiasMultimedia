@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="6a821a8d-16d7-4acc-9cb1-c993bd00e661" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/../../SD/A11" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../.idea/artifacts/JavaFXApp.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/4a.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/LZ77.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TM_1b/Document_ P2(b)" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TM_1b/src/Data.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TM_1b/src/Huffman.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TM_1b/src/Main.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../TM_1b/src/Node.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../año3/Grafics/F05" beforeDir="false" afterPath="$PROJECT_DIR$/../../../año3/Grafics/F05" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../año3/Grafics/F05_2" beforeDir="false" afterPath="$PROJECT_DIR$/../../../año3/Grafics/F05_2" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../año3/Grafics/F05_3" beforeDir="false" afterPath="$PROJECT_DIR$/../../../año3/Grafics/F05_3" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../año3/Grafics/F05_4" beforeDir="false" afterPath="$PROJECT_DIR$/../../../año3/Grafics/F05_4" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../año3/Grafics/F05_5" beforeDir="false" afterPath="$PROJECT_DIR$/../../../año3/Grafics/F05_5" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../año3/Grafics/F05_6" beforeDir="false" afterPath="$PROJECT_DIR$/../../../año3/Grafics/F05_6" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../año3/Grafics/F05_8" beforeDir="false" afterPath="$PROJECT_DIR$/../../../año3/Grafics/F05_8" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../año3/Grafics/practica1/fase0/F05" beforeDir="false" afterPath="$PROJECT_DIR$/../../../año3/Grafics/practica1/fase0/F05" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../año3/Grafics/seguritat/RayTracingEstudiants" beforeDir="false" afterPath="$PROJECT_DIR$/../../../año3/Grafics/seguritat/RayTracingEstudiants" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../año3/SD/1/F5" beforeDir="false" afterPath="$PROJECT_DIR$/../../../año3/SD/1/F5" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../año3/SD/F5" beforeDir="false" afterPath="$PROJECT_DIR$/../../../año3/SD/F5" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../año3/SD/F5 (copia)" beforeDir="false" afterPath="$PROJECT_DIR$/../../../año3/SD/F5 (copia)" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../año3/SD/F5_1" beforeDir="false" afterPath="$PROJECT_DIR$/../../../año3/SD/F5_1" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../año3/SD/F5_2" beforeDir="false" afterPath="$PROJECT_DIR$/../../../año3/SD/F5_2" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../../año3/SD/recu/F5" beforeDir="false" afterPath="$PROJECT_DIR$/../../../año3/SD/recu/F5" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../SO2/SO2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../SO2/Sublime text/sublime_text_3/Icon/128x128/sublime-text.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../SO2/Sublime text/sublime_text_3/Icon/16x16/sublime-text.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../SO2/Sublime text/sublime_text_3/Icon/256x256/sublime-text.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../SO2/Sublime text/sublime_text_3/Icon/32x32/sublime-text.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../SO2/Sublime text/sublime_text_3/Icon/48x48/sublime-text.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../SO2/Sublime text/sublime_text_3/Packages/ASP.sublime-package" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../SO2/Sublime text/sublime_text_3/Packages/ActionScript.sublime-package" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../SO2/Sublime text/sublime_text_3/Packages/AppleScript.sublime-package" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../SO2/Sublime text/sublime_text_3/Packages/Batch File.sublime-package" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../SO2/Sublime text/sublime_text_3/Packages/C#.sublime-package" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../SO2/Sublime text/sublime_text_3/Packages/C++.sublime-package" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../SO2/Sublime text/sublime_text_3/Packages/CSS.sublime-package" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../SO2/Sublime text/sublime_text_3/Packages/Clojure.sublime-package" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../SO2/Sublime text/sublime_text_3/Packages/Color Scheme - Default.sublime-package" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../SO2/Sublime text/sublime_text_3/Packages/Color Scheme - Legacy.sublime-package" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../SO2/Sublime text/sublime_text_3/Packages/D.sublime-package" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../SO2/Sublime text/sublime_text_3/Packages/Default.sublime-package" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../SO2/Sublime text/sublime_text_3/Packages/Diff.sublime-package" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../SO2/Sublime text/sublime_text_3/Packages/Erlang.sublime-package" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../SO2/Sublime text/sublime_text_3/Packages/Git Formats.sublime-package" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../SO2/Sublime text/sublime_text_3/Packages/Go.sublime-package" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../SO2/Sublime text/sublime_text_3/Packages/Graphviz.sublime-package" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../SO2/Sublime text/sublime_text_3/Packages/Groovy.sublime-package" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../SO2/Sublime text/sublime_text_3/Packages/HTML.sublime-package" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../SO2/Sublime text/sublime_text_3/Packages/Haskell.sublime-package" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../SO2/Sublime text/sublime_text_3/Packages/Java.sublime-package" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../SO2/Sublime text/sublime_text_3/Packages/JavaScript.sublime-package" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../SO2/Sublime text/sublime_text_3/Packages/LaTeX.sublime-package" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../SO2/Sublime text/sublime_text_3/Packages/Language - English.sublime-package" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../SO2/Sublime text/sublime_text_3/Packages/Lisp.sublime-package" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../SO2/Sublime text/sublime_text_3/Packages/Lua.sublime-package" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../SO2/Sublime text/sublime_text_3/Packages/Makefile.sublime-package" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../SO2/Sublime text/sublime_text_3/Packages/Markdown.sublime-package" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../SO2/Sublime text/sublime_text_3/Packages/Matlab.sublime-package" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../SO2/Sublime text/sublime_text_3/Packages/OCaml.sublime-package" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../SO2/Sublime text/sublime_text_3/Packages/Objective-C.sublime-package" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../SO2/Sublime text/sublime_text_3/Packages/PHP.sublime-package" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../SO2/Sublime text/sublime_text_3/Packages/Pascal.sublime-package" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../SO2/Sublime text/sublime_text_3/Packages/Perl.sublime-package" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../SO2/Sublime text/sublime_text_3/Packages/Python.sublime-package" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../SO2/Sublime text/sublime_text_3/Packages/R.sublime-package" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../SO2/Sublime text/sublime_text_3/Packages/Rails.sublime-package" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../SO2/Sublime text/sublime_text_3/Packages/Regular Expressions.sublime-package" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../SO2/Sublime text/sublime_text_3/Packages/RestructuredText.sublime-package" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../SO2/Sublime text/sublime_text_3/Packages/Ruby.sublime-package" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../SO2/Sublime text/sublime_text_3/Packages/Rust.sublime-package" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../SO2/Sublime text/sublime_text_3/Packages/SQL.sublime-package" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../SO2/Sublime text/sublime_text_3/Packages/Scala.sublime-package" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../SO2/Sublime text/sublime_text_3/Packages/ShellScript.sublime-package" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../SO2/Sublime text/sublime_text_3/Packages/TCL.sublime-package" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../SO2/Sublime text/sublime_text_3/Packages/Text.sublime-package" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../SO2/Sublime text/sublime_text_3/Packages/Textile.sublime-package" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../SO2/Sublime text/sublime_text_3/Packages/Theme - Default.sublime-package" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../SO2/Sublime text/sublime_text_3/Packages/Vintage.sublime-package" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../SO2/Sublime text/sublime_text_3/Packages/XML.sublime-package" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../SO2/Sublime text/sublime_text_3/Packages/YAML.sublime-package" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../SO2/Sublime text/sublime_text_3/changelog.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../SO2/Sublime text/sublime_text_3/crash_reporter" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../SO2/Sublime text/sublime_text_3/plugin_host" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../SO2/Sublime text/sublime_text_3/python3.3.zip" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../SO2/Sublime text/sublime_text_3/sublime.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../SO2/Sublime text/sublime_text_3/sublime_plugin.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../SO2/Sublime text/sublime_text_3/sublime_text" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../SO2/Sublime text/sublime_text_3/sublime_text.desktop" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../SO2/Sublime text/sublime_text_3_build_3176_x64.tar.bz2" beforeDir="false" />
+    </list>
+    <ignored path="$PROJECT_DIR$/out/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Main.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="473">
+              <caret line="50" column="66" selection-start-line="50" selection-start-column="66" selection-end-line="50" selection-end-column="66" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="jrt:///usr/lib/jvm/java-1.11.0-openjdk-amd64!/java.base/java/lang/Math.class">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="206">
+              <caret line="65" column="25" selection-start-line="65" selection-start-column="25" selection-end-line="65" selection-end-column="25" />
+              <folding>
+                <element signature="e#1831#1832#0" expanded="true" />
+                <element signature="e#1871#1872#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/LZ77.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="405">
+              <caret line="69" column="29" lean-forward="true" selection-start-line="69" selection-start-column="29" selection-end-line="69" selection-end-column="29" />
+              <folding>
+                <element signature="e#537#538#0" expanded="true" />
+                <element signature="e#565#566#0" expanded="true" />
+                <element signature="e#688#689#0" expanded="true" />
+                <element signature="e#720#721#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../.." />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/src/Main.java" />
+        <option value="$PROJECT_DIR$/src/LZ77.java" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="1612" />
+    <option name="height" value="876" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="4a" type="b2602c69:ProjectViewProjectNode" />
+              <item name="4a" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="4a" type="b2602c69:ProjectViewProjectNode" />
+              <item name="4a" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1555014076556" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../TM_1b" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true">
+      <option name="MAIN_CLASS_NAME" value="Main" />
+      <module name="4a" />
+      <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
+      <RunnerSettings RunnerId="Run" />
+      <ConfigurationWrapper RunnerId="Run" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="6a821a8d-16d7-4acc-9cb1-c993bd00e661" name="Default Changelist" comment="" />
+      <created>1555002325138</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1555002325138</updated>
+      <workItem from="1555002329724" duration="11574000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="11574000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="65" y="-4" width="1301" height="772" extended-state="6" />
+    <layout>
+      <window_info id="Image Layers" />
+      <window_info id="Designer" />
+      <window_info id="UI Designer" />
+      <window_info id="Capture Tool" />
+      <window_info id="Favorites" side_tool="true" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.24940239" />
+      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info anchor="bottom" id="Docker" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Database Changes" />
+      <window_info anchor="bottom" id="Version Control" />
+      <window_info anchor="bottom" id="Terminal" />
+      <window_info anchor="bottom" id="Event Log" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" />
+      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="right" id="Palette" />
+      <window_info anchor="right" id="Theme Preview" />
+      <window_info anchor="right" id="Maven" />
+      <window_info anchor="right" id="Capture Analysis" />
+      <window_info anchor="right" id="Palette&#9;" />
+      <window_info anchor="right" id="Database" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+    </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="jrt:///usr/lib/jvm/java-1.11.0-openjdk-amd64!/java.base/java/lang/Math.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="206">
+          <caret line="65" column="25" selection-start-line="65" selection-start-column="25" selection-end-line="65" selection-end-column="25" />
+          <folding>
+            <element signature="e#1831#1832#0" expanded="true" />
+            <element signature="e#1871#1872#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="473">
+          <caret line="50" column="66" selection-start-line="50" selection-start-column="66" selection-end-line="50" selection-end-column="66" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/LZ77.class">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Main.class">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/LZ77.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="405">
+          <caret line="69" column="29" lean-forward="true" selection-start-line="69" selection-start-column="29" selection-end-line="69" selection-end-column="29" />
+          <folding>
+            <element signature="e#537#538#0" expanded="true" />
+            <element signature="e#565#566#0" expanded="true" />
+            <element signature="e#688#689#0" expanded="true" />
+            <element signature="e#720#721#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>
