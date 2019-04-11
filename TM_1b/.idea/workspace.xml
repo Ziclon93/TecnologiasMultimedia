@@ -2,15 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2d2af900-ab5d-4b1e-8f77-c093b244f0c0" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../../SD/A11" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../.idea/artifacts/JavaFXApp.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../4a/4a.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../4a/src/LZ77.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Document_ P2(b)" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Data.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Huffman.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Node.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../../año3/Grafics/F05" beforeDir="false" afterPath="$PROJECT_DIR$/../../../año3/Grafics/F05" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../../año3/Grafics/F05_2" beforeDir="false" afterPath="$PROJECT_DIR$/../../../año3/Grafics/F05_2" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../../año3/Grafics/F05_3" beforeDir="false" afterPath="$PROJECT_DIR$/../../../año3/Grafics/F05_3" afterDir="false" />
@@ -26,6 +17,11 @@
       <change beforePath="$PROJECT_DIR$/../../../año3/SD/F5_1" beforeDir="false" afterPath="$PROJECT_DIR$/../../../año3/SD/F5_1" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../../año3/SD/F5_2" beforeDir="false" afterPath="$PROJECT_DIR$/../../../año3/SD/F5_2" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../../año3/SD/recu/F5" beforeDir="false" afterPath="$PROJECT_DIR$/../../../año3/SD/recu/F5" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../SD/TM_1b/.idea/uiDesigner.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../SD/TM_1b/src/Data.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../SD/TM_1b/src/MyComparator.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../SD/TM_1b/src/Node.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../SD/TM_1b/src/Tree.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../../SO2/SO2" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../../SO2/Sublime text/sublime_text_3/Icon/128x128/sublime-text.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../../SO2/Sublime text/sublime_text_3/Icon/16x16/sublime-text.png" beforeDir="false" />
@@ -92,6 +88,10 @@
       <change beforePath="$PROJECT_DIR$/../../SO2/Sublime text/sublime_text_3/sublime_text" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../../SO2/Sublime text/sublime_text_3/sublime_text.desktop" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../../SO2/Sublime text/sublime_text_3_build_3176_x64.tar.bz2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4a/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../4a/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4a/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../4a/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../4a/src/LZ77.java" beforeDir="false" afterPath="$PROJECT_DIR$/../4a/src/LZ77.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -181,7 +181,7 @@
     </findStrings>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../.." />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
@@ -264,6 +264,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="-4" width="1301" height="772" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25338647" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />

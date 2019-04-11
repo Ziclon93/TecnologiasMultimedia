@@ -2,15 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="6a821a8d-16d7-4acc-9cb1-c993bd00e661" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../../SD/A11" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../.idea/artifacts/JavaFXApp.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/4a.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/LZ77.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../TM_1b/Document_ P2(b)" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../TM_1b/src/Data.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../TM_1b/src/Huffman.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../TM_1b/src/Main.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../TM_1b/src/Node.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../../año3/Grafics/F05" beforeDir="false" afterPath="$PROJECT_DIR$/../../../año3/Grafics/F05" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../../año3/Grafics/F05_2" beforeDir="false" afterPath="$PROJECT_DIR$/../../../año3/Grafics/F05_2" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../../año3/Grafics/F05_3" beforeDir="false" afterPath="$PROJECT_DIR$/../../../año3/Grafics/F05_3" afterDir="false" />
@@ -26,6 +17,11 @@
       <change beforePath="$PROJECT_DIR$/../../../año3/SD/F5_1" beforeDir="false" afterPath="$PROJECT_DIR$/../../../año3/SD/F5_1" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../../año3/SD/F5_2" beforeDir="false" afterPath="$PROJECT_DIR$/../../../año3/SD/F5_2" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../../año3/SD/recu/F5" beforeDir="false" afterPath="$PROJECT_DIR$/../../../año3/SD/recu/F5" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../SD/TM_1b/.idea/uiDesigner.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../SD/TM_1b/src/Data.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../SD/TM_1b/src/MyComparator.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../SD/TM_1b/src/Node.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../SD/TM_1b/src/Tree.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../../SO2/SO2" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../../SO2/Sublime text/sublime_text_3/Icon/128x128/sublime-text.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../../SO2/Sublime text/sublime_text_3/Icon/16x16/sublime-text.png" beforeDir="false" />
@@ -92,6 +88,10 @@
       <change beforePath="$PROJECT_DIR$/../../SO2/Sublime text/sublime_text_3/sublime_text" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../../SO2/Sublime text/sublime_text_3/sublime_text.desktop" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../../SO2/Sublime text/sublime_text_3_build_3176_x64.tar.bz2" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/LZ77.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/LZ77.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TM_1b/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../TM_1b/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../TM_1b/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../TM_1b/.idea/workspace.xml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -127,8 +127,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/LZ77.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="405">
-              <caret line="69" column="29" lean-forward="true" selection-start-line="69" selection-start-column="29" selection-end-line="69" selection-end-column="29" />
+            <state relative-caret-position="-186">
+              <caret line="81" column="25" selection-start-line="81" selection-start-column="25" selection-end-line="81" selection-end-column="25" />
               <folding>
                 <element signature="e#537#538#0" expanded="true" />
                 <element signature="e#565#566#0" expanded="true" />
@@ -149,7 +149,7 @@
     </option>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../../.." />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
@@ -194,7 +194,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1555014076556" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1555017303712" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../TM_1b" />
   </component>
   <component name="RunDashboard">
@@ -231,15 +231,16 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1555002325138</updated>
-      <workItem from="1555002329724" duration="11574000" />
+      <workItem from="1555002329724" duration="13852000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="11574000" />
+    <option name="totallyTimeSpent" value="13852000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="-4" width="1301" height="772" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Image Layers" />
       <window_info id="Designer" />
@@ -301,8 +302,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/LZ77.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
-          <caret line="69" column="29" lean-forward="true" selection-start-line="69" selection-start-column="29" selection-end-line="69" selection-end-column="29" />
+        <state relative-caret-position="-186">
+          <caret line="81" column="25" selection-start-line="81" selection-start-column="25" selection-end-line="81" selection-end-column="25" />
           <folding>
             <element signature="e#537#538#0" expanded="true" />
             <element signature="e#565#566#0" expanded="true" />

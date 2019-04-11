@@ -1,4 +1,4 @@
-import java.util.ArrayList;
+import java.lang.Object;
 
 public class LZ77 {
 
@@ -46,16 +46,22 @@ public class LZ77 {
         while (i< (this.Mtotal -(this.Ment + this.Mdes))){
             //We fond the string that matches
             match = getMatch(code.substring(i,i+this.Mdes), code.substring(i+this.Mdes,i+this.Mdes +this.Ment));
+            if (match.equals("0") || match.equals("1")){
+                this.compressCode += match;
+                i++;
 
-            //Displace the slidding window
-            int displacement = Integer.parseInt(match.substring(0,(int)(Math.log(this.Ment)/ Math.log(2))),2);
-            if (displacement == 0){
-                displacement = this.Ment;
+            }else{
+                //Displace the slidding window
+                int displacement = Integer.parseInt(match.substring(0,(int)(Math.log(this.Ment)/ Math.log(2))),2);
+                if (displacement == 0){
+                    displacement = this.Ment;
+                }
+                i+= displacement;
+
+                //Add this match to the compress code
+                this.compressCode += match;
             }
-            i+= displacement;
 
-            //Add this match to the compress code
-            this.compressCode += match;
         }
         this.compressCode += this.code.substring(i);
     }
@@ -64,9 +70,21 @@ public class LZ77 {
         boolean found = false;
         String result = "";
 
+        int count1 = this.countOccurences(slidingWindow,'1');
+        int count0 = this.countOccurences(slidingWindow,'0');
+
+        if((count0 == slidingWindow.length()) && (inWindow.charAt(0) == '1')){
+            result = "1";
+            found = true;
+        }
+        else if ((count1 == slidingWindow.length()) && (inWindow.charAt(0) == '0')){
+            result = "0";
+            found = true;
+        }
+
         while(!found){
             //Never gonna happen but...
-            if( inWindow.length() == 0){
+            if( inWindow.length() == 0) {
                 found = true;
             }
             else{
@@ -106,5 +124,16 @@ public class LZ77 {
         }
         System.out.println("RESULT: " + result);
         return result;
+    }
+
+    private int countOccurences(String str, char letter) {
+        int count = 0;
+        for(int i=0; i< str.length(); i++){
+            if(str.charAt(i) == letter){
+                count++;
+            }
+        }
+
+        return count;
     }
 }
