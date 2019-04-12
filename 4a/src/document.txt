@@ -1,0 +1,11 @@
+Apartado 1:
+
+El programa comprime y descomprime cadeans de bits aleatorio correctamente,
+ejecutando el main con las variable Mtotal a 25 y las otras dos introducidas por consola.
+
+
+Apartado 2:
+
+Poniendo Mtotal a 10000 formará los 10000 bits aleatorios, haciendo pruebas desde longitudes de 2 hasta longitudes de 2048
+hemos visto que en valores de entrada muy pequeños o muy cercanos al tamaño de la ventana la compresión es peor,
+en valores como por ejemplo con entrada: 16 y ventana: 2048 hay una mejor compresión
