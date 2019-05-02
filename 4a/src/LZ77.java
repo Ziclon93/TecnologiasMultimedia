@@ -2,15 +2,19 @@ import java.lang.Object;
 
 public class LZ77 {
 
-    private int Ment, Mdes, Mtotal;
+    private int Ment, Mdes, Mtotal, MentLog, MdesLog;
     private String code;
     private String compressCode;
+
 
     public LZ77(int Ment, int Mdes, int Mtotal){
         this.Ment = Ment;
         this.Mdes = Mdes;
         this.Mtotal = Mtotal;
         this.code = "";
+
+        this.MentLog = (int)(Math.log(this.Ment)/ Math.log(2));
+        this.MdesLog = (int)(Math.log(this.Mdes)/ Math.log(2));
 
         int random;
 
@@ -39,16 +43,17 @@ public class LZ77 {
         int i =0;
         String match;
         this.compressCode = this.code.substring(0,this.Mdes);
-        while (i< (this.Mtotal -(this.Ment + this.Mdes))){
+        while (i<= (this.Mtotal -(this.Ment + this.Mdes))){
             //We fond the string that matches
             match = getMatch(code.substring(i,i+this.Mdes), code.substring(i+this.Mdes,i+this.Mdes +this.Ment));
             if (match.equals("0") || match.equals("1")){
+                System.out.println("HA HABIDO ERROR");
                 this.compressCode += match;
                 i++;
 
             }else{
                 //Displace the slidding window
-                int displacement = Integer.parseInt(match.substring(0,(int)(Math.log(this.Ment)/ Math.log(2))),2);
+                int displacement = Integer.parseInt(match.substring(0,this.MentLog),2);
                 if (displacement == 0){
                     displacement = this.Ment;
                 }
@@ -59,10 +64,12 @@ public class LZ77 {
             }
 
         }
-        this.compressCode += this.code.substring(i);
+        this.compressCode += this.code.substring(i+this.Mdes);
     }
 
     public String getMatch(String slidingWindow , String inWindow){
+
+
         boolean found = false;
         String result = "";
 
@@ -89,6 +96,7 @@ public class LZ77 {
                 int stepsBack= 0;
                 while( (u >= 0) && (!match)){
                     if(slidingWindow.substring(u,u+inWindow.length()).equals(inWindow)){
+
                         match = true;
                         found = true;
 
@@ -99,15 +107,15 @@ public class LZ77 {
                         String displacementBinary = Integer.toBinaryString(displacement);
 
                         //fix if the binary is smallest that what we need
-                        while (numberOfBitsBinary.length() < (int)(Math.log(this.Ment)/ Math.log(2))){
+                        while (numberOfBitsBinary.length() < this.MentLog){
                             numberOfBitsBinary = "0" +numberOfBitsBinary;
                         }
-                        while (displacementBinary.length() < (int)(Math.log(this.Mdes)/ Math.log(2))){
+                        while (displacementBinary.length() < this.MdesLog){
                             displacementBinary = "0" +displacementBinary;
                         }
 
-                        result += numberOfBitsBinary.substring(numberOfBitsBinary.length() - (int)(Math.log(this.Ment)/ Math.log(2)));
-                        result += displacementBinary.substring(displacementBinary.length() - (int)(Math.log(this.Mdes)/ Math.log(2)));
+                        result += numberOfBitsBinary.substring(numberOfBitsBinary.length() - this.MentLog);
+                        result += displacementBinary.substring(displacementBinary.length() - this.MdesLog);
 
 
                     }
@@ -115,10 +123,40 @@ public class LZ77 {
                     u--;
                 }
             }
-            System.out.println("Window value: "+ inWindow);
+            //System.out.println("Window value: "+ inWindow);
             inWindow = inWindow.substring(0,(inWindow.length()-1));
         }
-        System.out.println("RESULT: " + result);
+        //System.out.println("RESULT: " + result);
+        return result;
+    }
+
+    public String decompressCode(){
+        String result =this.compressCode.substring(0,this.Mdes);
+
+        int i = this.Mdes;
+        while((i+this.MentLog+this.MdesLog) < (this.compressCode.length())){
+
+            String Lbits = this.compressCode.substring(i,i+this.MentLog);
+            String Dbits = this.compressCode.substring(i+this.MentLog, i+this.MdesLog+this.MentLog);
+
+            int L = Integer.parseInt(Lbits,2);
+            int D = Integer.parseInt(Dbits,2);
+
+            if(L==0){
+                L = this.Ment;
+            }
+            if(D==0){
+                D = this.Mdes;
+            }
+
+            String provResult = result.substring(result.length() - D, (result.length() - D) + L);
+
+            i+= this.MentLog + this.MdesLog;
+            result += provResult;
+        }
+
+        result += this.compressCode.substring(i);
+
         return result;
     }
 

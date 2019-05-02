@@ -1,0 +1,7 @@
+Querría mencionar que la codificación funciona sin problemas, pero a la hora de tratar el error de la cadena de 1s o 0s ocupando la ventana deslizante seguidos de un contrario, lo hemos tratado como indicas en la teoria, pero a la hora de descodificarlo de nuevo, no se trata correctamente este bit (no sabemos como deberiamos hacerlo), por lo tanto a veces la cadena de descodificación aparece erronea.
+
+Se ha hecho como en la anterior practica, los apartados aparecerán respuestos por terminal:
+
+En el apartado A, simplemente se muestra la cadena de 25 bits generada aleatoriamente, la cadena codificada y finalmente decodificada.
+
+En el apartado B, Se explica teoricamente porque si la cadena es corta no conseguiremos una mejoría en la compresión de los datos y se lleva a cabo una prueba con una cadena mas larga (se muestran las caracteristicas) y finalmente se muestra la mejoría respecto a la cadena sin comprimir.
