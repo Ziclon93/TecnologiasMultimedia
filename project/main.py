@@ -1,5 +1,13 @@
 #!/usr/bin/python3
 
+"""
+Tecnologíes Multimedia, 2019
+Universitat de Barcelona
+
+Pedro Pizarro Huertas
+Lluís Montabes García
+"""
+
 import sys, argparse
 from zipfile import ZipFile
 
@@ -10,6 +18,39 @@ import matplotlib.animation as animation
 
 # $ pip install Pillow
 from PIL import Image
+
+class Filters:
+
+    def negate(v):
+        return v * -1
+
+    def binarize(v, b):
+        return 255 if v > b else 0
+
+class Filter:
+    """
+    Defines an operation that can be applied to an image.
+    """
+
+    def __init__(self, operation, tile_size = 0):
+        self.operation = operation
+        self.tile_size = tile_size
+
+    def apply_to(self, img):
+        """
+        Apply filter to specified image
+        """
+        for x in range(img.shape[0]):
+            for y in range(img.shape[1]):
+                for z in range(img.shape[2]):
+                    img[x, y, z] = self.operation(img[x, y, z])
+
+    def apply_to_all(self, img_arr):
+        """
+        Apply filter to image array
+        """
+        for img in img_arr:
+            self.apply_to(img)
 
 def parse_args(args):
     """
@@ -150,12 +191,29 @@ def main(argv):
 
     def updatefig(*args):
         global i
-        i += 1
+        i = (i + 1) % len(frames)
         img.set_array(frames[i])
         return img,
 
-    ani = animation.FuncAnimation(fig, updatefig, interval=50, blit=True)
-    plt.show()
+    # Calculate frequency at which to update frame
+    # or leave as 50 if FPS are undefined
+    freq = 1000 / args.fps if args.fps else 50
+
+    ani = animation.FuncAnimation(fig, updatefig, interval=freq, blit=True)
+    #plt.show()
+
+    # Define filters to implement
+    filter_negative = Filter(lambda x: Filters.negate(x))
+    filter_binary = Filter(lambda x: Filters.binarize(x, args.binarization))
+
+    # Implement specified filters
+    if args.negative:
+        filter_negative.apply_to_all(frames)
+        plt.show()
+
+    if args.binarization:
+        filter_binary.apply_to_all(frames)
+        plt.show()
 
 if __name__ == "__main__":
    main(sys.argv[1:])
