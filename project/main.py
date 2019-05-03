@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
 """
-Tecnologíes Multimedia, 2019
+Tecnologies Multimedia, 2019
 Universitat de Barcelona
 
 Pedro Pizarro Huertas
@@ -209,11 +209,11 @@ def main(argv):
     # Implement specified filters
     if args.negative:
         filter_negative.apply_to_all(frames)
-        plt.show()
 
     if args.binarization:
         filter_binary.apply_to_all(frames)
-        plt.show()
+
+    plt.show()
 
 if __name__ == "__main__":
    main(sys.argv[1:])
