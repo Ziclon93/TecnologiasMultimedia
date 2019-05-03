@@ -8,8 +8,9 @@ Pedro Pizarro Huertas
 Lluís Montabes García
 """
 
+import os
 import sys, argparse
-from zipfile import ZipFile
+import zipfile
 
 # $ pip install -U matplotlib
 import numpy as np
@@ -17,7 +18,7 @@ import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 
 # $ pip install Pillow
-from PIL import Image
+from PIL import Image, ImageFile
 
 class Filters:
 
@@ -151,6 +152,12 @@ def parse_args(args):
     # Parse arguments and get input file name
     return parser.parse_args()
 
+def zipdir(path, ziph):
+    # ziph is zipfile handle
+    for root, dirs, files in os.walk(path):
+        for file in files:
+            ziph.write(os.path.join(root, file))
+
 def main(argv):
     """
     Main application routine
@@ -165,7 +172,7 @@ def main(argv):
     print("Reading from", input_file_name)
 
     # Open and read from zip
-    zip_file = ZipFile(input_file_name, "r")
+    zip_file = zipfile.ZipFile(input_file_name, "r")
 
     # Set up display
     fig = plt.figure()
@@ -200,7 +207,6 @@ def main(argv):
     freq = 1000 / args.fps if args.fps else 50
 
     ani = animation.FuncAnimation(fig, updatefig, interval=freq, blit=True)
-    #plt.show()
 
     # Define filters to implement
     filter_negative = Filter(lambda x: Filters.negate(x))
@@ -213,6 +219,23 @@ def main(argv):
     if args.binarization:
         filter_binary.apply_to_all(frames)
 
+    # Create output folder if it doesn't exist
+    if not os.path.exists('output'):
+        os.makedirs('output')
+
+    # Save each frame as JPEG
+    i = 0
+    for f in frames:
+        filtered_img = Image.fromarray(f)
+        filtered_img.save('output/frame_' + str(i) + '.jpg','JPEG')
+        i += 1
+
+    # Compress output
+    output_zip = zipfile.ZipFile('output.zip', 'w', zipfile.ZIP_DEFLATED)
+    zipdir('output/', output_zip)
+    output_zip.close()
+
+    # Show result animation
     plt.show()
 
 if __name__ == "__main__":
