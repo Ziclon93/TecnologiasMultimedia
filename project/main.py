@@ -20,6 +20,10 @@ import matplotlib.animation as animation
 # $ pip install Pillow
 from PIL import Image, ImageFile
 
+# Dimensions of tiles to divide into
+TILE_W = 5
+TILE_H = 5
+
 class Filters:
 
     def negate(v):
@@ -30,7 +34,7 @@ class Filters:
 
 class Filter:
     """
-    Defines an operation that can be applied to an image.
+    Defines an operation that can be applied to an image
     """
 
     def __init__(self, operation, tile_size = 0):
@@ -55,7 +59,7 @@ class Filter:
 
 def parse_args(args):
     """
-    Parse arguments from args string.
+    Parse arguments from args string
 
     :param args: Argument string to parse
     :returns: Object containing parsed arguments
@@ -158,6 +162,19 @@ def zipdir(path, ziph):
         for file in files:
             ziph.write(os.path.join(root, file))
 
+def diamondCorrelation(frame1,frame2,tile):
+
+    print(abs(sum(frame1[0,0] - frame2[0,0])))
+
+
+def encode(GOP,frames):
+
+    for i in range(0,len(frames),GOP):
+        for n in range(i,i+GOP):
+            for tile in range
+            diamondCorrelation(frames[n],frames[n+1])
+
+
 def main(argv):
     """
     Main application routine
@@ -229,6 +246,11 @@ def main(argv):
         filtered_img = Image.fromarray(f)
         filtered_img.save('output/frame_' + str(i) + '.jpg','JPEG')
         i += 1
+
+    # Encode
+    encode(10,frames)
+
+
 
     # Compress output
     output_zip = zipfile.ZipFile('output.zip', 'w', zipfile.ZIP_DEFLATED)
