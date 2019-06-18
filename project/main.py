@@ -250,6 +250,8 @@ def main(argv):
     if args.encode and args.decode:
         #encode(frames)
         mv = find_motion_vectors(frames[0], frames[1])
+        reconstruct(
+        split_into_tiles(frames[0], 16, 16), mv)
 
 def encode(frames):
     """
@@ -278,7 +280,7 @@ def split_into_tiles(im, w, h):
     """
 
     tiles = np.array([im[x:x + h, y:y + w] for x in range(0, im.shape[0], h) for y in range(0, im.shape[1], w)])
-    rows = np.split(tiles, im.shape[1] / h)
+    rows = np.split(tiles, im.shape[0] / w)
     result = np.stack(rows)
     return result
 
@@ -354,21 +356,26 @@ def find_motion_vectors(frame1, frame2):
             motion_vector = (current_position[0] - i, current_position[1] - j)
             motion_vectors[(i, j)] = motion_vector
 
-    rec = np.zeros(frame1.shape)
-    mv = motion_vectors
+    return motion_vectors
+
+def reconstruct(tiles, mv):
+    """
+    Reconstruct an image given previous frame tiles and movement vectors
+    """
+
+    rec = np.zeros((tiles.shape[0] * 16, tiles.shape[1] * 16, 3))
+
     for k, v in mv.items():
         try:
             rec[
-                k[1] * TILE_W : (k[1] + 1) * TILE_W,
-                k[0] * TILE_H : (k[0] + 1) * TILE_H
-            ] = skimage.img_as_float(tiles1[k])
-        except ValueError:
+                k[0] * TILE_W : (k[0] + 1) * TILE_W,
+                k[1] * TILE_H : (k[1] + 1) * TILE_H
+            ] = skimage.img_as_float(tiles[k[0] + v[0], k[1] + v[1]])
+        except:
             pass
 
     plt.imshow(rec)
     plt.show()
-
-    return motion_vectors
 
 if __name__ == "__main__":
    main(sys.argv[1:])
