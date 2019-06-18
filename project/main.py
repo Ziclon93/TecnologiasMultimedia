@@ -6,23 +6,28 @@ Universitat de Barcelona
 
 Pedro Pizarro Huertas
 Lluís Montabes García
+
+Dependencies:
+- matplotlib
+- Pillow
+- scikit-image
+- scipy
 """
 
 import os
 import sys, argparse
 import zipfile
 
-# $ pip install -U matplotlib
 import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
-
-# $ pip install Pillow
 from PIL import Image, ImageFile
+from skimage import color
+from skimage import io
 
 # Dimensions of tiles to divide into
-TILE_W = 5
-TILE_H = 5
+TILE_W = 16
+TILE_H = 16
 
 class Filters:
 
@@ -153,6 +158,12 @@ def parse_args(args):
         help="No video playback mode",
     )
 
+    parser.add_argument('--debug',
+        action="store_true",
+        dest="debug",
+        help="Print debug information",
+    )
+
     # Parse arguments and get input file name
     return parser.parse_args()
 
@@ -161,19 +172,6 @@ def zipdir(path, ziph):
     for root, dirs, files in os.walk(path):
         for file in files:
             ziph.write(os.path.join(root, file))
-
-def diamondCorrelation(frame1,frame2,tile):
-
-    print(abs(sum(frame1[0,0] - frame2[0,0])))
-
-
-def encode(GOP,frames):
-
-    for i in range(0,len(frames),GOP):
-        for n in range(i,i+GOP):
-            for tile in range
-            diamondCorrelation(frames[n],frames[n+1])
-
 
 def main(argv):
     """
@@ -192,7 +190,7 @@ def main(argv):
     zip_file = zipfile.ZipFile(input_file_name, "r")
 
     # Set up display
-    fig = plt.figure()
+#    anim_fig = plt.figure()
 
     frames = []
 
@@ -202,28 +200,28 @@ def main(argv):
         # Open file as Image, print metadata and show
         file = zip_file.open(entry)
         img = Image.open(file)
-        print(img.size, img.mode, len(img.getdata()))
+        if args.debug: print(img.size, img.mode, len(img.getdata()))
 
         # Convert image to numpy array and save to
         # frames array
         frames.append(np.array(img))
 
     # Display frames
-    img = plt.imshow(frames[0])
-    global i
-    i = 0
-
-    def updatefig(*args):
-        global i
-        i = (i + 1) % len(frames)
-        img.set_array(frames[i])
-        return img,
+#    img = plt.imshow(frames[0])
+#    global i
+#    i = 0
+#
+#    def updatefig(*args):
+#        global i
+#        i = (i + 1) % len(frames)
+#        img.set_array(frames[i])
+#        return img,
 
     # Calculate frequency at which to update frame
     # or leave as 50 if FPS are undefined
     freq = 1000 / args.fps if args.fps else 50
 
-    ani = animation.FuncAnimation(fig, updatefig, interval=freq, blit=True)
+    #ani = animation.FuncAnimation(anim_fig, updatefig, interval=freq, blit=True)
 
     # Define filters to implement
     filter_negative = Filter(lambda x: Filters.negate(x))
@@ -241,24 +239,133 @@ def main(argv):
         os.makedirs('output')
 
     # Save each frame as JPEG
-    i = 0
-    for f in frames:
-        filtered_img = Image.fromarray(f)
-        filtered_img.save('output/frame_' + str(i) + '.jpg','JPEG')
-        i += 1
-
-    # Encode
-    encode(10,frames)
-
-
-
-    # Compress output
-    output_zip = zipfile.ZipFile('output.zip', 'w', zipfile.ZIP_DEFLATED)
-    zipdir('output/', output_zip)
-    output_zip.close()
+#    i = 0
+#    for f in frames:
+#        filtered_img = Image.fromarray(f)
+#        filtered_img.save('output/frame_' + str(i) + '.jpg','JPEG')
+#        i += 1
 
     # Show result animation
+    # plt.show()
+
+    if args.encode and args.decode:
+        #encode(frames)
+        mv = find_motion_vectors(frames[0], frames[1])
+
+def encode(frames):
+    """
+    Encode given frames using motion estimation
+    """
+
+    for i, f in enumerate(frames):
+        if i + 1 < len(frames):
+            # Get current and next frames
+            current_frame = f
+            next_frame = frames[i + 1]
+
+            # Find motion vectors between current and next frames
+            find_motion_vectors(current_frame, next_frame)
+
+def get_matrix_difference(m1, m2):
+    """
+    Compute euclidean distance between two matrices
+    """
+
+    return np.linalg.norm(m1 - m2)
+
+def split_into_tiles(im, w, h):
+    """
+    Split given image into tiles of w * h dimensions
+    """
+
+    tiles = np.array([im[x:x + h, y:y + w] for x in range(0, im.shape[0], h) for y in range(0, im.shape[1], w)])
+    rows = np.split(tiles, im.shape[1] / h)
+    result = np.stack(rows)
+    return result
+
+def find_motion_vectors(frame1, frame2):
+    """
+    Find motion vectors between 2 frames using diamond search
+    """
+
+    def large_diamond(p):
+        i = p[0]
+        j = p[1]
+        return [
+            (i, j),         # center
+            (i, j-2),      # top
+            (i-1, j-1),    # up left
+            (i-2, j),      # left
+            (i-1, j+1),    # down left
+            (i, j+2),      # down
+            (i+1, j+1),    # down right
+            (i+2, j),      # right
+            (i+1, j+1)     # up right
+        ]
+
+    def small_diamond(p):
+        i = p[0]
+        j = p[1]
+        return [
+            (i, j),     # center
+            (i, j-1),   # top
+            (i-1, j),   # left
+            (i, j+1),   # bottom
+            (i+1, j)    # right
+        ]
+
+    # Split frames into tiles of TILE_W * TILE_H dimensions
+    tiles1 = split_into_tiles(frame1, TILE_W, TILE_H)
+    tiles2 = split_into_tiles(frame2, TILE_W, TILE_H)
+
+    motion_vectors = {}
+
+    for i in range(tiles1.shape[0]):
+        for j in range(tiles1.shape[1]):
+
+            # Compute distance to each tile in next frame
+            # in large diamond shape
+            current_position = (i, j)
+            last_position = None
+
+            while current_position != last_position:
+
+                last_position = current_position
+                distances = {}
+
+                for pos in large_diamond(current_position):
+                    try:
+                        distances[pos] = get_matrix_difference(tiles1[(i, j)], tiles2[pos])
+                    except IndexError:
+                        pass
+
+                current_position = min(distances, key=distances.get)
+
+            # Apply small diamond
+            distances = {}
+            for pos in small_diamond(current_position):
+                try:
+                    distances[pos] = get_matrix_difference(tiles1[(i, j)], tiles2[pos])
+                except IndexError:
+                    pass
+
+                current_position = min(distances, key=distances.get)
+
+            # Obtain final motion vector
+            motion_vector = (current_position[0] - i, current_position[1] - j)
+            motion_vectors[(i, j)] = motion_vector
+
+    rec = np.zeros(frame1.shape)
+    mv = motion_vectors
+    for k, v in mv.items():
+        rec[k[0]:k[0] + 16, k[1]:k[1] +  16] = tiles1[k[0] + v[0], k[1] + v[1]]
+        print (tiles1[k[0] + v[0], k[1] + v[1]])
+        print()
+
+    plt.imshow(rec)
     plt.show()
+
+    return motion_vectors
 
 if __name__ == "__main__":
    main(sys.argv[1:])
