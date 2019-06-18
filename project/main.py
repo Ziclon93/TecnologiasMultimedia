@@ -22,8 +22,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 from PIL import Image, ImageFile
-from skimage import color
-from skimage import io
+import skimage
 
 # Dimensions of tiles to divide into
 TILE_W = 16
@@ -292,7 +291,7 @@ def find_motion_vectors(frame1, frame2):
         i = p[0]
         j = p[1]
         return [
-            (i, j),         # center
+            (i, j),        # center
             (i, j-2),      # top
             (i-1, j-1),    # up left
             (i-2, j),      # left
@@ -358,9 +357,13 @@ def find_motion_vectors(frame1, frame2):
     rec = np.zeros(frame1.shape)
     mv = motion_vectors
     for k, v in mv.items():
-        rec[k[0]:k[0] + 16, k[1]:k[1] +  16] = tiles1[k[0] + v[0], k[1] + v[1]]
-        print (tiles1[k[0] + v[0], k[1] + v[1]])
-        print()
+        try:
+            rec[
+                k[1] * TILE_W : (k[1] + 1) * TILE_W,
+                k[0] * TILE_H : (k[0] + 1) * TILE_H
+            ] = skimage.img_as_float(tiles1[k])
+        except ValueError:
+            pass
 
     plt.imshow(rec)
     plt.show()
