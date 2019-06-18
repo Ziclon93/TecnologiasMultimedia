@@ -25,8 +25,8 @@ from PIL import Image, ImageFile
 import skimage
 
 # Dimensions of tiles to divide into
-TILE_W = 16
-TILE_H = 16
+TILE_W = 4
+TILE_H = 4
 
 class Filters:
 
@@ -205,23 +205,6 @@ def main(argv):
         # frames array
         frames.append(np.array(img))
 
-    # Display frames
-#    img = plt.imshow(frames[0])
-#    global i
-#    i = 0
-#
-#    def updatefig(*args):
-#        global i
-#        i = (i + 1) % len(frames)
-#        img.set_array(frames[i])
-#        return img,
-
-    # Calculate frequency at which to update frame
-    # or leave as 50 if FPS are undefined
-    freq = 1000 / args.fps if args.fps else 50
-
-    #ani = animation.FuncAnimation(anim_fig, updatefig, interval=freq, blit=True)
-
     # Define filters to implement
     filter_negative = Filter(lambda x: Filters.negate(x))
     filter_binary = Filter(lambda x: Filters.binarize(x, args.binarization))
@@ -248,15 +231,37 @@ def main(argv):
     # plt.show()
 
     if args.encode and args.decode:
-        #encode(frames)
-        mv = find_motion_vectors(frames[0], frames[1])
-        reconstruct(
-        split_into_tiles(frames[0], 16, 16), mv)
+        enc = encode(frames)
+        print ("Encoded")
+
+        dec = decode(enc)
+
+        anim_fig = plt.figure()
+
+        # Display frames
+        img = plt.imshow(dec[0])
+
+        global i
+        i = 0
+        def updatefig(*args):
+            global i
+            i = (i + 1) % len(dec)
+            img.set_array(dec[i])
+            return img,
+
+        # Calculate frequency at which to update frame
+        # or leave as 50 if FPS are undefined
+        freq = 1000 / args.fps if args.fps else 50
+
+        ani = animation.FuncAnimation(anim_fig, updatefig, interval=freq, blit=True)
+        plt.show()
 
 def encode(frames):
     """
     Encode given frames using motion estimation
     """
+
+    encoded = [frames[0]]
 
     for i, f in enumerate(frames):
         if i + 1 < len(frames):
@@ -265,7 +270,23 @@ def encode(frames):
             next_frame = frames[i + 1]
 
             # Find motion vectors between current and next frames
-            find_motion_vectors(current_frame, next_frame)
+            mv = find_motion_vectors(current_frame, next_frame)
+            encoded.append(mv)
+
+    return encoded
+
+def decode(encoded):
+    """
+    Decode given data
+    """
+
+    decoded = [encoded[0]]
+
+    for i, c in enumerate(encoded[1:]):
+        r = reconstruct_frame(decoded[i], c)
+        decoded.append(r)
+
+    return decoded
 
 def get_matrix_difference(m1, m2):
     """
@@ -358,11 +379,12 @@ def find_motion_vectors(frame1, frame2):
 
     return motion_vectors
 
-def reconstruct(tiles, mv):
+def reconstruct_frame(frame, mv):
     """
     Reconstruct an image given previous frame tiles and movement vectors
     """
 
+    tiles = split_into_tiles(frame, TILE_W, TILE_H)
     rec = np.zeros((tiles.shape[0] * 16, tiles.shape[1] * 16, 3))
 
     for k, v in mv.items():
@@ -374,8 +396,7 @@ def reconstruct(tiles, mv):
         except:
             pass
 
-    plt.imshow(rec)
-    plt.show()
+    return rec
 
 if __name__ == "__main__":
    main(sys.argv[1:])
