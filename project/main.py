@@ -25,8 +25,8 @@ from PIL import Image, ImageFile
 import skimage
 
 # Dimensions of tiles to divide into
-TILE_W = 4
-TILE_H = 4
+TILE_W = 16
+TILE_H = 16
 
 class Filters:
 
