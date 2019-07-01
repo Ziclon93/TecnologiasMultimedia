@@ -28,6 +28,10 @@ import skimage
 TILE_W = 16
 TILE_H = 16
 
+# Initial ranges
+SEEK_RANGE = 10
+MAX_DIFF = 50
+
 class Filters:
 
     def negate(v):
@@ -290,10 +294,12 @@ def decode(encoded):
 
 def get_matrix_difference(m1, m2):
     """
-    Compute euclidean distance between two matrices
+    Compute euclidean distance between two matrices.
+    Returns None if distance is above defined threshold.
     """
 
-    return np.linalg.norm(m1 - m2)
+    d = np.linalg.norm(m1 - m2)
+    return d if d > MAX_DIFF else None
 
 def split_into_tiles(im, w, h):
     """
