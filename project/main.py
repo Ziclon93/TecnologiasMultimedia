@@ -25,12 +25,12 @@ from PIL import Image, ImageFile
 import skimage
 
 # Dimensions of tiles to divide into
-TILE_W = 16
-TILE_H = 16
+TILE_W = 8
+TILE_H = 8
 
 # Initial ranges
 SEEK_RANGE = 10
-MAX_DIFF = 50
+MAX_DIFF = 5000
 
 class Filters:
 
@@ -265,7 +265,8 @@ def encode(frames):
     Encode given frames using motion estimation
     """
 
-    encoded = [frames[0]]
+    encoded = []
+    remains = [frames[0]]
 
     for i, f in enumerate(frames):
         if i + 1 < len(frames):
@@ -277,17 +278,22 @@ def encode(frames):
             mv = find_motion_vectors(current_frame, next_frame)
             encoded.append(mv)
 
-    return encoded
+            # Append tiles without motion vectors
+            remains.append(current_frame)
+
+    return (encoded, remains)
 
 def decode(encoded):
     """
     Decode given data
     """
 
-    decoded = [encoded[0]]
+    vectors = encoded[0]
+    remains = encoded[1]
+    decoded = []
 
-    for i, c in enumerate(encoded[1:]):
-        r = reconstruct_frame(decoded[i], c)
+    for i, c in enumerate(vectors):
+        r = reconstruct_frame(remains[i], remains[i+1], c)
         decoded.append(r)
 
     return decoded
@@ -299,7 +305,7 @@ def get_matrix_difference(m1, m2):
     """
 
     d = np.linalg.norm(m1 - m2)
-    return d if d > MAX_DIFF else None
+    return d if d < MAX_DIFF else None
 
 def split_into_tiles(im, w, h):
     """
@@ -355,29 +361,44 @@ def find_motion_vectors(frame1, frame2):
             # in large diamond shape
             current_position = (i, j)
             last_position = None
+            traveled = 0
 
-            while current_position != last_position:
+            while current_position != last_position and traveled < SEEK_RANGE:
 
                 last_position = current_position
                 distances = {}
 
                 for pos in large_diamond(current_position):
                     try:
-                        distances[pos] = get_matrix_difference(tiles1[(i, j)], tiles2[pos])
+                        # Compute matrix difference and add to dict if it's
+                        # in threshold
+                        d = get_matrix_difference(tiles1[(i, j)], tiles2[pos])
+                        if d:
+                            distances[pos] = d
+
                     except IndexError:
                         pass
 
-                current_position = min(distances, key=distances.get)
+                if distances:
+                    # Some value(s) fit the distance threshold, investigate
+                    current_position = min(distances, key=distances.get)
+                    traveled += np.linalg.norm(np.subtract(current_position, last_position))
 
             # Apply small diamond
             distances = {}
             for pos in small_diamond(current_position):
                 try:
-                    distances[pos] = get_matrix_difference(tiles1[(i, j)], tiles2[pos])
+                    # Compute matrix difference and add to dict if it's
+                    # in threshold
+                    d = get_matrix_difference(tiles1[(i, j)], tiles2[pos])
+                    if d:
+                        distances[pos] = d
                 except IndexError:
                     pass
 
-                current_position = min(distances, key=distances.get)
+                if distances:
+                    # Some value(s) fit the distance threshold, investigate
+                    current_position = min(distances, key=distances.get)
 
             # Obtain final motion vector
             motion_vector = (current_position[0] - i, current_position[1] - j)
@@ -385,20 +406,21 @@ def find_motion_vectors(frame1, frame2):
 
     return motion_vectors
 
-def reconstruct_frame(frame, mv):
+def reconstruct_frame(previous_frame, current_frame, mv):
     """
     Reconstruct an image given previous frame tiles and movement vectors
     """
 
-    tiles = split_into_tiles(frame, TILE_W, TILE_H)
-    rec = np.zeros((tiles.shape[0] * 16, tiles.shape[1] * 16, 3))
+    p_tiles = split_into_tiles(previous_frame, TILE_W, TILE_H)
+    c_tiles = split_into_tiles(current_frame, TILE_W, TILE_H)
+    rec = np.zeros((c_tiles.shape[0] * TILE_W, c_tiles.shape[1] * TILE_H, 3))
 
     for k, v in mv.items():
         try:
             rec[
                 k[0] * TILE_W : (k[0] + 1) * TILE_W,
                 k[1] * TILE_H : (k[1] + 1) * TILE_H
-            ] = skimage.img_as_float(tiles[k[0] + v[0], k[1] + v[1]])
+            ] = skimage.img_as_float(p_tiles[k[0] + v[0], k[1] + v[1]])
         except:
             pass
 
