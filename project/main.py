@@ -30,7 +30,7 @@ TILE_H = 8
 
 # Initial ranges
 SEEK_RANGE = 10
-MAX_DIFF = 5000
+MAX_DIFF = 500
 
 class Filters:
 
