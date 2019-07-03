@@ -26,8 +26,8 @@ from PIL import Image, ImageFile
 import skimage
 
 # Dimensions of tiles to divide into
-TILE_W = 8
-TILE_H = 8
+TILE_W = 16
+TILE_H = 16
 
 # Initial ranges
 SEEK_RANGE = 10
@@ -227,9 +227,9 @@ def main(argv):
     if args.encode:
         enc = encode(frames)
         print ("Encoded")
-        
+
         result = enc[1]
-        
+
 
     elif args.decode:
          # Open and read from zip
@@ -269,7 +269,7 @@ def main(argv):
         for id, img in enumerate(enc[1]):
             img = Image.fromarray(skimage.img_as_ubyte(img))
             img.save('tmp/' + f'{id:02}' + '.jpg', "JPEG", quality=95, dpi=(TILE_W, TILE_H))
-        
+
         # Compress
         zipf = zipfile.ZipFile(args.output_file, 'w', zipfile.ZIP_DEFLATED)
         zipdir('tmp', zipf)
@@ -281,7 +281,7 @@ def main(argv):
 
     # Display frames
     img = plt.imshow(result[0])
-    
+
     global i
     i = 0
     def updatefig(*args):
@@ -472,7 +472,7 @@ def reconstruct_frame(previous_frame, current_frame, mv):
             rec[
                 k[0] * TILE_W : (k[0] + 1) * TILE_W,
                 k[1] * TILE_H : (k[1] + 1) * TILE_H
-            ] = skimage.img_as_float(p_tiles[k[0] + v[0], k[1] + v[1]])
+            ] = .5 * skimage.img_as_float(c_tiles[k[0], k[1]]) + .5 * skimage.img_as_float(p_tiles[k[0] + v[0], k[1] + v[1]])
         else:
             rec[
                 k[0] * TILE_W : (k[0] + 1) * TILE_W,
