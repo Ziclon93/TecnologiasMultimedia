@@ -225,14 +225,23 @@ def main(argv):
     result = frames
 
     if args.encode:
-        enc = encode(frames)
-        print ("Encoded")
 
+        # Split in GOPs
+        gops = np.split(np.array(frames), args.GOP if args.GOP else 1)
+        encoded_frames = []
+        encoded_vectors = []
+
+        for gop in gops:
+            e = encode(gop)
+            encoded_frames += e[1]
+            encoded_vectors += e[0]
+
+        print ("Encoded")
+        enc = (encoded_vectors, encoded_frames)
         result = enc[1]
 
-
     elif args.decode:
-         # Open and read from zip
+        # Open and read from zip
         zip_file = zipfile.ZipFile(args.input_file, "r")
         vector_data = zip_file.read('tmp/vectors')
         motion_vectors = pickle.loads(vector_data)
@@ -252,9 +261,7 @@ def main(argv):
                 frames.append(np.array(img))
 
         enc = (motion_vectors, frames)
-
         result = decode(enc)
-
         print ("Decoded")
 
     if args.output_file:
