@@ -17,6 +17,7 @@ Dependencies:
 import os
 import sys, argparse
 import zipfile
+import pickle
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -30,7 +31,7 @@ TILE_H = 8
 
 # Initial ranges
 SEEK_RANGE = 10
-MAX_DIFF = 1000
+MAX_DIFF = 500
 
 class Filters:
 
@@ -192,9 +193,6 @@ def main(argv):
     # Open and read from zip
     zip_file = zipfile.ZipFile(input_file_name, "r")
 
-    # Set up display
-#    anim_fig = plt.figure()
-
     frames = []
 
     # Iterate over all files contained in zip_file
@@ -221,24 +219,56 @@ def main(argv):
         filter_binary.apply_to_all(frames)
 
     # Create output folder if it doesn't exist
-    if not os.path.exists('output'):
-        os.makedirs('output')
-
-    # Save each frame as JPEG
-#    i = 0
-#    for f in frames:
-#        filtered_img = Image.fromarray(f)
-#        filtered_img.save('output/frame_' + str(i) + '.jpg','JPEG')
-#        i += 1
-
-    # Show result animation
-    # plt.show()
+    if not os.path.exists('tmp'):
+        os.makedirs('tmp')
 
     if args.encode and args.decode:
         enc = encode(frames)
         print ("Encoded")
 
+        if args.output_file:
+
+            # Save serialized vector data
+            serialized_vectors = pickle.dumps(enc[0])
+            text_file = open("tmp/vectors", "wb")
+            text_file.write(serialized_vectors)
+            text_file.close()
+
+            # Save trimmed frames
+            for id, img in enumerate(enc[1]):
+                img = Image.fromarray(skimage.img_as_ubyte(img))
+                img.save('tmp/' + f'{id:02}' + '.jpg', "JPEG", quality=95, dpi=(TILE_W, TILE_H))
+            
+            # Compress
+            zipf = zipfile.ZipFile(args.output_file, 'w', zipfile.ZIP_DEFLATED)
+            zipdir('tmp', zipf)
+            zipf.close()
+
+            print ("Saved")
+
+            # Open and read from zip
+            zip_file = zipfile.ZipFile(args.output_file, "r")
+            vector_data = zip_file.read('tmp/vectors')
+            motion_vectors = pickle.loads(vector_data)
+
+            frames = []
+
+            # Iterate over all files contained in zip_file
+            for entry in zip_file.infolist():
+                if entry.filename != 'tmp/vectors':
+                    # Open file as Image, print metadata and show
+                    file = zip_file.open(entry)
+                    img = Image.open(file)
+                    if args.debug: print(img.size, img.mode, len(img.getdata()))
+
+                    # Convert image to numpy array and save to
+                    # frames array
+                    frames.append(np.array(img))
+
+            enc = (motion_vectors, frames)
+
         dec = decode(enc)
+        print ("Decoded")
 
         anim_fig = plt.figure()
 
@@ -286,7 +316,7 @@ def encode(frames):
                     rec[
                         k[0] * TILE_W : (k[0] + 1) * TILE_W,
                         k[1] * TILE_H : (k[1] + 1) * TILE_H
-                    ] = 0
+                    ] = np.mean(skimage.img_as_float(c_tiles[k[0], k[1]]), axis=0)
                 else:
                     rec[
                         k[0] * TILE_W : (k[0] + 1) * TILE_W,
@@ -305,10 +335,10 @@ def decode(encoded):
 
     vectors = encoded[0]
     remains = encoded[1]
-    decoded = []
+    decoded = [remains[0]]
 
     for i, c in enumerate(vectors):
-        r = reconstruct_frame(remains[i], remains[i+1], c)
+        r = reconstruct_frame(decoded[i], remains[i+1], c)
         decoded.append(r)
 
     return decoded
@@ -431,13 +461,16 @@ def reconstruct_frame(previous_frame, current_frame, mv):
     rec = np.zeros((c_tiles.shape[0] * TILE_W, c_tiles.shape[1] * TILE_H, 3))
 
     for k, v in mv.items():
-        try:
+        if v != (0, 0):
             rec[
                 k[0] * TILE_W : (k[0] + 1) * TILE_W,
                 k[1] * TILE_H : (k[1] + 1) * TILE_H
             ] = skimage.img_as_float(p_tiles[k[0] + v[0], k[1] + v[1]])
-        except:
-            pass
+        else:
+            rec[
+                k[0] * TILE_W : (k[0] + 1) * TILE_W,
+                k[1] * TILE_H : (k[1] + 1) * TILE_H
+            ] = skimage.img_as_float(c_tiles[k[0], k[1]])
 
     return rec
 
