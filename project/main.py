@@ -31,7 +31,7 @@ TILE_H = 16
 
 # Initial ranges
 SEEK_RANGE = 10
-MAX_DIFF = 500
+MAX_DIFF = 1000
 
 class Filters:
 
@@ -185,6 +185,18 @@ def main(argv):
     # Retrieve arguments
     args = parse_args(argv)
 
+    global seek_range
+    global max_diff
+
+    seek_range = SEEK_RANGE
+    max_diff = MAX_DIFF
+
+    if args.seekRange:
+        seek_range = args.seekRange
+
+    if args.quality:
+        max_diff = max_diff / args.quality
+
     # Get input file from speficied arguments
     input_file_name = args.input_file
 
@@ -284,25 +296,28 @@ def main(argv):
 
         print ("Saved")
 
-    anim_fig = plt.figure()
+    if not args.b:
+    # Display video
 
-    # Display frames
-    img = plt.imshow(result[0])
+        anim_fig = plt.figure()
 
-    global i
-    i = 0
-    def updatefig(*args):
+        # Display frames
+        img = plt.imshow(result[0])
+
         global i
-        i = (i + 1) % len(result)
-        img.set_array(result[i])
-        return img,
+        i = 0
+        def updatefig(*args):
+            global i
+            i = (i + 1) % len(result)
+            img.set_array(result[i])
+            return img,
 
-    # Calculate frequency at which to update frame
-    # or leave as 50 if FPS are undefined
-    freq = 1000 / args.fps if args.fps else 50
+        # Calculate frequency at which to update frame
+        # or leave as 50 if FPS are undefined
+        freq = 1000 / args.fps if args.fps else 50
 
-    ani = animation.FuncAnimation(anim_fig, updatefig, interval=freq, blit=True)
-    plt.show()
+        ani = animation.FuncAnimation(anim_fig, updatefig, interval=freq, blit=True)
+        plt.show()
 
 def encode(frames):
     """
@@ -364,7 +379,7 @@ def get_matrix_difference(m1, m2):
     """
 
     d = np.linalg.norm(m1 - m2)
-    return d if d < MAX_DIFF else None
+    return d if d < max_diff else None
 
 def split_into_tiles(im, w, h):
     """
@@ -422,7 +437,7 @@ def find_motion_vectors(frame1, frame2):
             last_position = None
             traveled = 0
 
-            while current_position != last_position and traveled < SEEK_RANGE:
+            while current_position != last_position and traveled < seek_range:
 
                 last_position = current_position
                 distances = {}
