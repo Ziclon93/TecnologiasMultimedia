@@ -197,15 +197,15 @@ def main(argv):
 
     # Iterate over all files contained in zip_file
     for entry in zip_file.infolist():
+        if entry.filename != 'tmp/vectors':
+            # Open file as Image, print metadata and show
+            file = zip_file.open(entry)
+            img = Image.open(file)
+            if args.debug: print(img.size, img.mode, len(img.getdata()))
 
-        # Open file as Image, print metadata and show
-        file = zip_file.open(entry)
-        img = Image.open(file)
-        if args.debug: print(img.size, img.mode, len(img.getdata()))
-
-        # Convert image to numpy array and save to
-        # frames array
-        frames.append(np.array(img))
+            # Convert image to numpy array and save to
+            # frames array
+            frames.append(np.array(img))
 
     # Define filters to implement
     filter_negative = Filter(lambda x: Filters.negate(x))
@@ -222,73 +222,80 @@ def main(argv):
     if not os.path.exists('tmp'):
         os.makedirs('tmp')
 
-    if args.encode and args.decode:
+    result = frames
+
+    if args.encode:
         enc = encode(frames)
         print ("Encoded")
+        
+        result = enc[1]
+        
 
-        if args.output_file:
+    elif args.decode:
+         # Open and read from zip
+        zip_file = zipfile.ZipFile(args.input_file, "r")
+        vector_data = zip_file.read('tmp/vectors')
+        motion_vectors = pickle.loads(vector_data)
 
-            # Save serialized vector data
-            serialized_vectors = pickle.dumps(enc[0])
-            text_file = open("tmp/vectors", "wb")
-            text_file.write(serialized_vectors)
-            text_file.close()
+        frames = []
 
-            # Save trimmed frames
-            for id, img in enumerate(enc[1]):
-                img = Image.fromarray(skimage.img_as_ubyte(img))
-                img.save('tmp/' + f'{id:02}' + '.jpg', "JPEG", quality=95, dpi=(TILE_W, TILE_H))
-            
-            # Compress
-            zipf = zipfile.ZipFile(args.output_file, 'w', zipfile.ZIP_DEFLATED)
-            zipdir('tmp', zipf)
-            zipf.close()
+        # Iterate over all files contained in zip_file
+        for entry in zip_file.infolist():
+            if entry.filename != 'tmp/vectors':
+                # Open file as Image, print metadata and show
+                file = zip_file.open(entry)
+                img = Image.open(file)
+                if args.debug: print(img.size, img.mode, len(img.getdata()))
 
-            print ("Saved")
+                # Convert image to numpy array and save to
+                # frames array
+                frames.append(np.array(img))
 
-            # Open and read from zip
-            zip_file = zipfile.ZipFile(args.output_file, "r")
-            vector_data = zip_file.read('tmp/vectors')
-            motion_vectors = pickle.loads(vector_data)
+        enc = (motion_vectors, frames)
 
-            frames = []
+        result = decode(enc)
 
-            # Iterate over all files contained in zip_file
-            for entry in zip_file.infolist():
-                if entry.filename != 'tmp/vectors':
-                    # Open file as Image, print metadata and show
-                    file = zip_file.open(entry)
-                    img = Image.open(file)
-                    if args.debug: print(img.size, img.mode, len(img.getdata()))
-
-                    # Convert image to numpy array and save to
-                    # frames array
-                    frames.append(np.array(img))
-
-            enc = (motion_vectors, frames)
-
-        dec = decode(enc)
         print ("Decoded")
 
-        anim_fig = plt.figure()
+    if args.output_file:
 
-        # Display frames
-        img = plt.imshow(dec[0])
+        # Save serialized vector data
+        serialized_vectors = pickle.dumps(enc[0])
+        text_file = open("tmp/vectors", "wb")
+        text_file.write(serialized_vectors)
+        text_file.close()
 
+        # Save trimmed frames
+        for id, img in enumerate(enc[1]):
+            img = Image.fromarray(skimage.img_as_ubyte(img))
+            img.save('tmp/' + f'{id:02}' + '.jpg', "JPEG", quality=95, dpi=(TILE_W, TILE_H))
+        
+        # Compress
+        zipf = zipfile.ZipFile(args.output_file, 'w', zipfile.ZIP_DEFLATED)
+        zipdir('tmp', zipf)
+        zipf.close()
+
+        print ("Saved")
+
+    anim_fig = plt.figure()
+
+    # Display frames
+    img = plt.imshow(result[0])
+    
+    global i
+    i = 0
+    def updatefig(*args):
         global i
-        i = 0
-        def updatefig(*args):
-            global i
-            i = (i + 1) % len(dec)
-            img.set_array(dec[i])
-            return img,
+        i = (i + 1) % len(result)
+        img.set_array(result[i])
+        return img,
 
-        # Calculate frequency at which to update frame
-        # or leave as 50 if FPS are undefined
-        freq = 1000 / args.fps if args.fps else 50
+    # Calculate frequency at which to update frame
+    # or leave as 50 if FPS are undefined
+    freq = 1000 / args.fps if args.fps else 50
 
-        ani = animation.FuncAnimation(anim_fig, updatefig, interval=freq, blit=True)
-        plt.show()
+    ani = animation.FuncAnimation(anim_fig, updatefig, interval=freq, blit=True)
+    plt.show()
 
 def encode(frames):
     """
