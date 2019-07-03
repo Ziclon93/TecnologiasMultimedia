@@ -30,7 +30,7 @@ TILE_H = 8
 
 # Initial ranges
 SEEK_RANGE = 10
-MAX_DIFF = 10
+MAX_DIFF = 1000
 
 class Filters:
 
@@ -265,7 +265,7 @@ def encode(frames):
     Encode given frames using motion estimation
     """
 
-    encoded = []
+    vectors = []
     remains = [frames[0]]
 
     for i, f in enumerate(frames):
@@ -276,12 +276,27 @@ def encode(frames):
 
             # Find motion vectors between current and next frames
             mv = find_motion_vectors(current_frame, next_frame)
-            encoded.append(mv)
+            vectors.append(mv)
+
+            # Empty tiles from frame
+            c_tiles = split_into_tiles(current_frame, TILE_W, TILE_H)
+            rec = np.zeros((c_tiles.shape[0] * TILE_W, c_tiles.shape[1] * TILE_H, 3))
+            for k, v in mv.items():
+                if v != (0, 0):
+                    rec[
+                        k[0] * TILE_W : (k[0] + 1) * TILE_W,
+                        k[1] * TILE_H : (k[1] + 1) * TILE_H
+                    ] = 0
+                else:
+                    rec[
+                        k[0] * TILE_W : (k[0] + 1) * TILE_W,
+                        k[1] * TILE_H : (k[1] + 1) * TILE_H
+                    ] = skimage.img_as_float(c_tiles[k[0], k[1]])
 
             # Append tiles without motion vectors
-            remains.append(current_frame)
+            remains.append(rec)
 
-    return (encoded, remains)
+    return (vectors, remains)
 
 def decode(encoded):
     """
