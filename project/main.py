@@ -30,8 +30,8 @@ TILE_W = 16
 TILE_H = 16
 
 # Initial ranges
-SEEK_RANGE = 10
-MAX_DIFF = 1000
+SEEK_RANGE = 20
+MAX_DIFF = 14000
 
 class Filters:
 
@@ -277,17 +277,30 @@ def main(argv):
         print ("Decoded")
 
     if args.output_file:
+        if args.encode:
+            # Save serialized vector data
 
-        # Save serialized vector data
-        serialized_vectors = pickle.dumps(enc[0])
-        text_file = open("tmp/vectors", "wb")
-        text_file.write(serialized_vectors)
-        text_file.close()
+            serial = ""
+            for d in enc[0]:
+                for k, v in d.items():
+                    k_val = str(k[0]) + "," + str(k[1])
+                    v_val = str(v[0]) + "," + str(v[1])
+                    serial += (k_val + ":" + v_val)
+                serial += ("|")
+
+            text_file = open("vectors.txt", "w")
+            text_file.write(serial)
+            text_file.close()
+
+            serialized_vectors = pickle.dumps(enc[0])
+            text_file = open("tmp/vectors", "wb")
+            text_file.write(serialized_vectors)
+            text_file.close()
 
         # Save trimmed frames
-        for id, img in enumerate(enc[1]):
+        for id, img in enumerate(result):
             img = Image.fromarray(skimage.img_as_ubyte(img))
-            img.save('tmp/' + f'{id:02}' + '.jpg', "JPEG", quality=95, dpi=(TILE_W, TILE_H))
+            img.save('tmp/' + f'{id:02}' + '.jpeg', "JPEG")
 
         # Compress
         zipf = zipfile.ZipFile(args.output_file, 'w', zipfile.ZIP_DEFLATED)
@@ -340,17 +353,19 @@ def encode(frames):
             # Empty tiles from frame
             c_tiles = split_into_tiles(current_frame, TILE_W, TILE_H)
             rec = np.zeros((c_tiles.shape[0] * TILE_W, c_tiles.shape[1] * TILE_H, 3))
-            for k, v in mv.items():
-                if v != (0, 0):
-                    rec[
-                        k[0] * TILE_W : (k[0] + 1) * TILE_W,
-                        k[1] * TILE_H : (k[1] + 1) * TILE_H
-                    ] = np.mean(skimage.img_as_float(c_tiles[k[0], k[1]]), axis=0)
-                else:
-                    rec[
-                        k[0] * TILE_W : (k[0] + 1) * TILE_W,
-                        k[1] * TILE_H : (k[1] + 1) * TILE_H
-                    ] = skimage.img_as_float(c_tiles[k[0], k[1]])
+            for i in range(int(rec.shape[0] / TILE_W)):
+                for j in range(int(rec.shape[1] / TILE_H)):
+                    k = (i, j)
+                    if k in mv:
+                        rec[
+                            k[0] * TILE_W : (k[0] + 1) * TILE_W,
+                            k[1] * TILE_H : (k[1] + 1) * TILE_H
+                        ] = np.mean(np.mean(skimage.img_as_float(c_tiles[k[0], k[1]]), axis=0), axis=0)
+                    else:
+                        rec[
+                            k[0] * TILE_W : (k[0] + 1) * TILE_W,
+                            k[1] * TILE_H : (k[1] + 1) * TILE_H
+                        ] = skimage.img_as_float(c_tiles[k[0], k[1]])
 
             # Append tiles without motion vectors
             remains.append(rec)
@@ -378,7 +393,7 @@ def get_matrix_difference(m1, m2):
     Returns None if distance is above defined threshold.
     """
 
-    d = np.linalg.norm(m1 - m2)
+    d = np.sum(np.abs(m1 - m2)) / 3
     return d if d < max_diff else None
 
 def split_into_tiles(im, w, h):
@@ -456,7 +471,7 @@ def find_motion_vectors(frame1, frame2):
                 if distances:
                     # Some value(s) fit the distance threshold, investigate
                     current_position = min(distances, key=distances.get)
-                    traveled += np.linalg.norm(np.subtract(current_position, last_position))
+                traveled += 1
 
             # Apply small diamond
             distances = {}
@@ -474,9 +489,11 @@ def find_motion_vectors(frame1, frame2):
                     # Some value(s) fit the distance threshold, investigate
                     current_position = min(distances, key=distances.get)
 
+
             # Obtain final motion vector
             motion_vector = (current_position[0] - i, current_position[1] - j)
-            motion_vectors[(i, j)] = motion_vector
+            if motion_vector != (0, 0):
+                motion_vectors[(current_position[0], current_position[1])] = motion_vector
 
     return motion_vectors
 
@@ -489,18 +506,27 @@ def reconstruct_frame(previous_frame, current_frame, mv):
     c_tiles = split_into_tiles(current_frame, TILE_W, TILE_H)
     rec = np.zeros((c_tiles.shape[0] * TILE_W, c_tiles.shape[1] * TILE_H, 3))
 
-    for k, v in mv.items():
-        if v != (0, 0):
-            rec[
-                k[0] * TILE_W : (k[0] + 1) * TILE_W,
-                k[1] * TILE_H : (k[1] + 1) * TILE_H
-            ] = .5 * skimage.img_as_float(c_tiles[k[0], k[1]]) + .5 * skimage.img_as_float(p_tiles[k[0] + v[0], k[1] + v[1]])
-        else:
-            rec[
-                k[0] * TILE_W : (k[0] + 1) * TILE_W,
-                k[1] * TILE_H : (k[1] + 1) * TILE_H
-            ] = skimage.img_as_float(c_tiles[k[0], k[1]])
+    for i in range(c_tiles.shape[0]):
+        for j in range(c_tiles.shape[1]):
+            try:
+                k = (i, j)
+                rec[
+                    k[0] * TILE_W : (k[0] + 1) * TILE_W,
+                    k[1] * TILE_H : (k[1] + 1) * TILE_H
+                ] = skimage.img_as_float(c_tiles[k[0], k[1]])
 
+                if k in mv:
+                    v = mv[k]
+
+                    print (k, v)
+
+                    rec[
+                        k[0] * TILE_W : (k[0] + 1) * TILE_W,
+                        k[1] * TILE_H : (k[1] + 1) * TILE_H
+                    ] = .5 * skimage.img_as_float(p_tiles[k[0] - v[0], k[1] - v[1]]) + .5 * skimage.img_as_float(c_tiles[k[0], k[1]])
+            except:
+                pass
+        
     return rec
 
 if __name__ == "__main__":
