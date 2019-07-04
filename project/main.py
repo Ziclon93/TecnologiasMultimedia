@@ -31,7 +31,7 @@ TILE_H = 16
 
 # Initial ranges
 SEEK_RANGE = 20
-MAX_DIFF = 14000
+MAX_DIFF = 30000
 
 class Filters:
 
@@ -517,9 +517,7 @@ def reconstruct_frame(previous_frame, current_frame, mv):
 
                 if k in mv:
                     v = mv[k]
-
                     print (k, v)
-
                     rec[
                         k[0] * TILE_W : (k[0] + 1) * TILE_W,
                         k[1] * TILE_H : (k[1] + 1) * TILE_H
